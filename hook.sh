@@ -21,6 +21,8 @@ deploy_challenge() {
         rootDirectory="${ROOT_DIR}";
     fi
 
+    printf "TOKEN_VALUE: %s\n" "${3}"
+
     curl -X POST "https://api.cloudflare.com/client/v4/zones/${zones}/dns_records"\
         -H "X-Auth-Email: ${email}"\
         -H "X-Auth-Key: ${global_api_key}"\

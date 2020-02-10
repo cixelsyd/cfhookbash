@@ -29,7 +29,7 @@ deploy_challenge() {
         -o "${rootDirectory}/${1}.txt"
 
     # Add delay to get the new DNS record
-    local DELAY=60;
+    local DELAY=20;
     echo "+++ Wait for ${DELAY} seconds. +++";
     while [ $DELAY -gt 0 ]; do
         sleep 1;
@@ -70,13 +70,13 @@ clean_challenge() {
     fi
 
     key_value=$(grep -Po '"id":.*?[^\\]"' "${rootDirectory}/${1}.txt")
-    #printf "id: %s\n" "${key_value}"
+    printf "id: %s\n" "${key_value}"
     #Remove first 6 occurence
     id="${key_value:6}"
-    #printf "id: %s\n" "${id}"
+    printf "id: %s\n" "${id}"
     #Remove last char
     id="${id::-1}"
-    #printf "id: %s\n" "${id}"
+    printf "id: %s\n" "${id}"
 
     curl -X DELETE "https://api.cloudflare.com/client/v4/zones/$zones/dns_records/${id}" \
      -H "X-Auth-Email: ${email}"\
